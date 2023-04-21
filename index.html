@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Temperature and Humidity Sensor</title>
+  </head>
+  <body>
+    <h1>Temperature and Humidity Sensor</h1>
+    <p id="data"></p>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      socket.on('sensorData', (data) => {
+        const parsedData = JSON.parse(data);
+        const temperature = parsedData.temperature.toFixed(1);
+        const humidity = parsedData.humidity.toFixed(1);
+        const formattedData = `Temperature: ${temperature}&deg;C, Humidity: ${humidity}%`;
+        document.getElementById('data').innerHTML = formattedData;
+      });
+    </script>
+  </body>
+</html>
